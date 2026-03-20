@@ -31,7 +31,6 @@
         <h1>Hackverse 1.0</h1>
         <h2>24-Hour Hackathon Registration</h2>
         <p class="theme-line">Organized by <strong>Department of CSE (Data Science)</strong></p>
-        <p class="association-line">In Association with <strong>CANACO Technologies</strong></p>
       </div>
 
       <div class="logo-box floating-logo">
@@ -39,6 +38,17 @@
       </div>
     </div>
   </header>
+
+  <!-- New association row -->
+  <section class="association-strip">
+    <div class="container association-inner">
+      <div class="association-title">In Association With</div>
+      <div class="association-brand">
+        <img src="assets/images/canaco-logo.png" alt="CANACO Technologies Logo" class="association-logo" />
+        <span>CANACO Technologies</span>
+      </div>
+    </div>
+  </section>
 
   <section class="hero-banner">
     <div class="hero-overlay">
@@ -68,7 +78,7 @@
 
           <div class="hero-buttons">
             <a href="#registration-section" class="btn-primary">Register Now</a>
-            <a href="#guidelines-section" class="btn-secondary">View Guidelines</a>
+            <a href="#sponsors-section" class="btn-secondary">Our Proud Sponsors</a>
           </div>
         </div>
 
@@ -76,6 +86,31 @@
           <div class="poster-frame">
             <img src="assets/images/poster.jpg" alt="Hackverse Poster" class="poster-image" />
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sponsors Gallery -->
+  <section class="sponsors-section" id="sponsors-section">
+    <div class="container">
+      <div class="section-title">
+        <h3>Our Proud Sponsors</h3>
+        <p>Supporting innovation, creativity, and student excellence</p>
+      </div>
+
+      <div class="sponsors-grid">
+        <div class="sponsor-card">
+          <img src="assets/images/sponsor1.png" alt="Sponsor 1" class="sponsor-image" />
+        </div>
+        <div class="sponsor-card">
+          <img src="assets/images/sponsor2.png" alt="Sponsor 2" class="sponsor-image" />
+        </div>
+        <div class="sponsor-card">
+          <img src="assets/images/sponsor3.png" alt="Sponsor 3" class="sponsor-image" />
+        </div>
+        <div class="sponsor-card">
+          <img src="assets/images/sponsor4.png" alt="Sponsor 4" class="sponsor-image" />
         </div>
       </div>
     </div>
@@ -94,7 +129,6 @@
         <div class="registration-main">
           <form id="hackathonForm" enctype="multipart/form-data">
 
-            <!-- STEP 1 -->
             <div class="step-card active-step">
               <div class="step-chip">Step 1</div>
               <h4>Team Details</h4>
@@ -129,7 +163,6 @@
               <input type="hidden" id="calculatedFeeValue" name="calculatedFeeValue" />
             </div>
 
-            <!-- STEP 2 -->
             <div class="step-card">
               <div class="step-chip">Step 2</div>
               <h4>Team Leader Details</h4>
@@ -168,7 +201,6 @@
               </div>
             </div>
 
-            <!-- STEP 3 -->
             <div class="step-card">
               <div class="step-chip">Step 3</div>
               <h4>Member 2 Details</h4>
@@ -207,7 +239,6 @@
               </div>
             </div>
 
-            <!-- STEP 4 -->
             <div id="member3Block" class="step-card member-block hidden">
               <div class="step-chip">Step 4</div>
               <h4>Member 3 Details</h4>
@@ -246,7 +277,6 @@
               </div>
             </div>
 
-            <!-- STEP 5 -->
             <div id="member4Block" class="step-card member-block hidden">
               <div class="step-chip">Step 5</div>
               <h4>Member 4 Details</h4>
@@ -285,7 +315,6 @@
               </div>
             </div>
 
-            <!-- STEP 6 -->
             <div class="step-card">
               <div class="step-chip">Step 6</div>
               <h4>Payment Details</h4>
@@ -321,7 +350,6 @@
               </div>
             </div>
 
-            <!-- STEP 7 -->
             <div class="step-card">
               <div class="step-chip">Step 7</div>
               <h4>Final Details</h4>
@@ -347,44 +375,48 @@
               <p id="statusMessage" class="status"></p>
             </div>
 
-            <!-- SUCCESS FLOW -->
             <div id="successCard" class="success-card hidden">
-              <h4>Application Submitted Successfully</h4>
+              <h4>Registration Successful</h4>
               <p><strong>Application ID:</strong> <span id="applicationIdText"></span></p>
-              <p>Your application has been submitted successfully.</p>
+              <p>Please download your hackathon entry ticket/receipt and join the WhatsApp group.</p>
 
-              <div id="pdfModalWindow" class="success-flow-box">
-                <h5>Step 1: Download Application PDF</h5>
-                <p>First download your submitted application form.</p>
+              <div class="success-flow-box">
+                <h5>Download Your Ticket / Receipt</h5>
+                <p>Use this file as your hackathon attendance receipt.</p>
                 <div class="success-btn-row">
-                  <a id="pdfLinkBtn" href="#" target="_blank" class="btn-primary">Download PDF</a>
-                  <button type="button" id="closePdfStepBtn" class="btn-secondary dark-btn">Close This Window</button>
-                </div>
-              </div>
-
-              <div id="whatsappModalWindow" class="success-flow-box hidden">
-                <h5>Step 2: Join WhatsApp Group</h5>
-                <p>After downloading the PDF, join the official hackathon WhatsApp group.</p>
-                <div class="success-btn-row">
+                  <a id="ticketLinkBtn" href="#" target="_blank" class="btn-primary">Download Ticket</a>
                   <a
                     id="whatsappGroupBtn"
-                    href="https://chat.whatsapp.com/PASTE_YOUR_GROUP_LINK"
+                    href="https://chat.whatsapp.com/IkGdFlQv1wmAE5tStHLCOJ"
                     target="_blank"
-                    class="btn-primary"
+                    class="btn-secondary dark-btn"
                   >
                     Join WhatsApp Group
                   </a>
                 </div>
               </div>
             </div>
+
           </form>
         </div>
 
         <aside class="registration-side">
           <div class="help-card three-d-card">
-            <h4>Registration Help</h4>
-            <p><strong>Faculty Coordinator:</strong><br />Dr. J. Ranjith<br />+91-6369043983</p>
-            <p><strong>Student Coordinator:</strong><br />Ms. K. Hema Sri<br />+91-8125617760</p>
+            <h4>Faculty Coordinators</h4>
+            <p><strong>Dr. J. Ranjith</strong><br />Assistant Professor<br />+91-6369043983</p>
+            <p><strong>Dr. Ch. Baswaraj</strong><br />Coordinator<br />+91-XXXXXXXXXX</p>
+          </div>
+
+          <div class="help-card three-d-card">
+            <h4>Student Coordinators</h4>
+            <p><strong>Ms. K. Hema Sri</strong><br />+91-8125617760</p>
+            <p><strong>Ms. Student Coordinator 2</strong><br />+91-XXXXXXXXXX</p>
+          </div>
+
+          <div class="help-card three-d-card">
+            <h4>Sub Coordinators</h4>
+            <p><strong>Mr./Ms. Sub Coordinator 1</strong><br />+91-XXXXXXXXXX</p>
+            <p><strong>Mr./Ms. Sub Coordinator 2</strong><br />+91-XXXXXXXXXX</p>
           </div>
 
           <div class="help-card three-d-card">
@@ -392,11 +424,6 @@
             <p>2 Members – ₹600</p>
             <p>3 Members – ₹750</p>
             <p>4 Members – ₹900</p>
-          </div>
-
-          <div class="help-card three-d-card">
-            <h4>Prize Pool</h4>
-            <p><strong>Rs. 50,000/-</strong></p>
           </div>
         </aside>
       </div>

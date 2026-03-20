@@ -7,26 +7,14 @@ const statusMessage = document.getElementById("statusMessage");
 
 const successCard = document.getElementById("successCard");
 const applicationIdText = document.getElementById("applicationIdText");
-const pdfLinkBtn = document.getElementById("pdfLinkBtn");
-const closePdfStepBtn = document.getElementById("closePdfStepBtn");
-const pdfModalWindow = document.getElementById("pdfModalWindow");
-const whatsappModalWindow = document.getElementById("whatsappModalWindow");
-
+const ticketLinkBtn = document.getElementById("ticketLinkBtn");
 const calculatedFee = document.getElementById("calculatedFee");
 const calculatedFeeValue = document.getElementById("calculatedFeeValue");
 
 // Paste your deployed Apps Script /exec URL here
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJE0MdgDu5Eaxmy9YhaONkBAw3wW9p-YnlDOPj9SYI7TFmO_ysoKuR4AeElcovGeKb/exec";
+const SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
 
 membersCount.addEventListener("change", handleTeamSizeChange);
-
-if (closePdfStepBtn) {
-  closePdfStepBtn.addEventListener("click", () => {
-    pdfModalWindow.classList.add("hidden");
-    whatsappModalWindow.classList.remove("hidden");
-    whatsappModalWindow.scrollIntoView({ behavior: "smooth", block: "center" });
-  });
-}
 
 function handleTeamSizeChange() {
   toggleMemberBlocks();
@@ -68,59 +56,35 @@ function toggleMemberBlocks() {
 }
 
 function setMember3Required(isRequired) {
-  [
-    "member3Name",
-    "member3College",
-    "member3Department",
-    "member3Email",
-    "member3Whatsapp",
-    "member3Year"
-  ].forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) el.required = isRequired;
-  });
+  ["member3Name", "member3College", "member3Department", "member3Email", "member3Whatsapp", "member3Year"]
+    .forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.required = isRequired;
+    });
 }
 
 function setMember4Required(isRequired) {
-  [
-    "member4Name",
-    "member4College",
-    "member4Department",
-    "member4Email",
-    "member4Whatsapp",
-    "member4Year"
-  ].forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) el.required = isRequired;
-  });
+  ["member4Name", "member4College", "member4Department", "member4Email", "member4Whatsapp", "member4Year"]
+    .forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.required = isRequired;
+    });
 }
 
 function clearMember3Fields() {
-  [
-    "member3Name",
-    "member3College",
-    "member3Department",
-    "member3Email",
-    "member3Whatsapp",
-    "member3Year"
-  ].forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) el.value = "";
-  });
+  ["member3Name", "member3College", "member3Department", "member3Email", "member3Whatsapp", "member3Year"]
+    .forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
 }
 
 function clearMember4Fields() {
-  [
-    "member4Name",
-    "member4College",
-    "member4Department",
-    "member4Email",
-    "member4Whatsapp",
-    "member4Year"
-  ].forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) el.value = "";
-  });
+  ["member4Name", "member4College", "member4Department", "member4Email", "member4Whatsapp", "member4Year"]
+    .forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
 }
 
 function setStatus(message, type = "") {
@@ -145,7 +109,7 @@ function validateFile(file) {
   const allowedExtensions = [".jpg", ".jpeg", ".png", ".webp", ".pdf"];
   const fileName = file.name.toLowerCase();
   const hasValidExtension = allowedExtensions.some((ext) => fileName.endsWith(ext));
-  const maxSize = 10 * 1024 * 1024; // 10 MB
+  const maxSize = 10 * 1024 * 1024;
 
   if (!(allowedTypes.includes(file.type) || hasValidExtension)) {
     return "Only JPG, JPEG, PNG, WEBP, or PDF files are allowed.";
@@ -164,9 +128,7 @@ function readFileAsBase64(file) {
 
     reader.onload = () => {
       try {
-        const result = String(reader.result);
-        const base64 = result.split(",")[1];
-        resolve(base64);
+        resolve(String(reader.result).split(",")[1]);
       } catch (error) {
         reject(new Error("Could not process the selected file."));
       }
@@ -184,7 +146,7 @@ function collectFormData(file, base64File) {
   return {
     teamName: document.getElementById("teamName").value.trim(),
     membersCount: document.getElementById("membersCount").value,
-    calculatedFee: calculatedFeeValue.value,
+    calculatedFee: document.getElementById("calculatedFeeValue").value,
 
     leaderName: document.getElementById("leaderName").value.trim(),
     leaderCollege: document.getElementById("leaderCollege").value.trim(),
@@ -224,12 +186,10 @@ function collectFormData(file, base64File) {
   };
 }
 
-function resetSuccessFlow() {
+function resetSuccessCard() {
   successCard.classList.add("hidden");
-  pdfModalWindow.classList.remove("hidden");
-  whatsappModalWindow.classList.add("hidden");
   applicationIdText.textContent = "";
-  pdfLinkBtn.href = "#";
+  ticketLinkBtn.href = "#";
 }
 
 function resetFormStateAfterSuccess() {
@@ -243,7 +203,7 @@ function resetFormStateAfterSuccess() {
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
-  resetSuccessFlow();
+  resetSuccessCard();
 
   if (SCRIPT_URL.includes("PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE")) {
     setStatus("Please paste your Google Apps Script Web App URL in script.js first.", "error");
@@ -260,9 +220,7 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  const fileInput = document.getElementById("paymentScreenshot");
-  const file = fileInput.files[0];
-
+  const file = document.getElementById("paymentScreenshot").files[0];
   const fileError = validateFile(file);
   if (fileError) {
     setStatus(fileError, "error");
@@ -271,7 +229,7 @@ form.addEventListener("submit", async (event) => {
 
   submitBtn.disabled = true;
   submitBtn.textContent = "Submitting...";
-  setStatus("Submitting application, generating unique application ID, PDF, and email...", "loading");
+  setStatus("Submitting application and generating your ticket...", "loading");
 
   try {
     const base64File = await readFileAsBase64(file);
@@ -286,17 +244,11 @@ form.addEventListener("submit", async (event) => {
     });
 
     const resultText = await response.text();
-    let result;
-
-    try {
-      result = JSON.parse(resultText);
-    } catch (parseError) {
-      throw new Error("Invalid server response: " + resultText);
-    }
+    const result = JSON.parse(resultText);
 
     if (result.status === "success") {
       applicationIdText.textContent = result.applicationId || "";
-      pdfLinkBtn.href = result.pdfUrl || "#";
+      ticketLinkBtn.href = result.ticketUrl || "#";
 
       setStatus(
         `Application submitted successfully. Your unique Application ID is ${result.applicationId}.`,
@@ -304,9 +256,6 @@ form.addEventListener("submit", async (event) => {
       );
 
       successCard.classList.remove("hidden");
-      pdfModalWindow.classList.remove("hidden");
-      whatsappModalWindow.classList.add("hidden");
-
       resetFormStateAfterSuccess();
 
       successCard.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -314,7 +263,7 @@ form.addEventListener("submit", async (event) => {
       setStatus(result.message || "Submission failed. Please try again.", "error");
     }
   } catch (error) {
-    console.error("Submission error:", error);
+    console.error(error);
     setStatus(error.message || "An error occurred while submitting the form.", "error");
   } finally {
     submitBtn.disabled = false;
@@ -322,7 +271,7 @@ form.addEventListener("submit", async (event) => {
   }
 });
 
-// Initial state
+// initial state
 toggleMemberBlocks();
 updateFeeDisplay();
-resetSuccessFlow();
+resetSuccessCard();
