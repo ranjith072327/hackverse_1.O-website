@@ -4,11 +4,33 @@ const member4Block = document.getElementById("member4Block");
 const form = document.getElementById("hackathonForm");
 const submitBtn = document.getElementById("submitBtn");
 const statusMessage = document.getElementById("statusMessage");
+const successCard = document.getElementById("successCard");
+const applicationIdText = document.getElementById("applicationIdText");
+const pdfLinkBtn = document.getElementById("pdfLinkBtn");
+const calculatedFee = document.getElementById("calculatedFee");
+const calculatedFeeValue = document.getElementById("calculatedFeeValue");
 
-// Paste your deployed Google Apps Script Web App URL here
+// Paste your deployed Apps Script /exec URL here
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxwDy3JyHjEZuo8ViOn9ZMKvpukIoXZdyNRtdgWKPkmm2dQdbyB88FlXNpbR_Kwu-5D/exec";
 
-membersCount.addEventListener("change", toggleMemberBlocks);
+membersCount.addEventListener("change", handleTeamSizeChange);
+
+function handleTeamSizeChange() {
+  toggleMemberBlocks();
+  updateFeeDisplay();
+}
+
+function updateFeeDisplay() {
+  const count = Number(membersCount.value || 0);
+  let fee = 0;
+
+  if (count === 2) fee = 600;
+  if (count === 3) fee = 750;
+  if (count === 4) fee = 900;
+
+  calculatedFee.textContent = `₹${fee}`;
+  calculatedFeeValue.value = fee ? String(fee) : "";
+}
 
 function toggleMemberBlocks() {
   const count = Number(membersCount.value || 0);
@@ -33,63 +55,37 @@ function toggleMemberBlocks() {
 }
 
 function setMember3Required(isRequired) {
-  [
-    "member3Name",
-    "member3College",
-    "member3Department",
-    "member3Email",
-    "member3Whatsapp",
-    "member3Year"
-  ].forEach((id) => {
-    document.getElementById(id).required = isRequired;
-  });
+  ["member3Name", "member3College", "member3Department", "member3Email", "member3Whatsapp", "member3Year"]
+    .forEach((id) => {
+      document.getElementById(id).required = isRequired;
+    });
 }
 
 function setMember4Required(isRequired) {
-  [
-    "member4Name",
-    "member4College",
-    "member4Department",
-    "member4Email",
-    "member4Whatsapp",
-    "member4Year"
-  ].forEach((id) => {
-    document.getElementById(id).required = isRequired;
-  });
+  ["member4Name", "member4College", "member4Department", "member4Email", "member4Whatsapp", "member4Year"]
+    .forEach((id) => {
+      document.getElementById(id).required = isRequired;
+    });
 }
 
 function clearMember3Fields() {
-  [
-    "member3Name",
-    "member3College",
-    "member3Department",
-    "member3Email",
-    "member3Whatsapp",
-    "member3Year"
-  ].forEach((id) => {
-    document.getElementById(id).value = "";
-  });
+  ["member3Name", "member3College", "member3Department", "member3Email", "member3Whatsapp", "member3Year"]
+    .forEach((id) => {
+      document.getElementById(id).value = "";
+    });
 }
 
 function clearMember4Fields() {
-  [
-    "member4Name",
-    "member4College",
-    "member4Department",
-    "member4Email",
-    "member4Whatsapp",
-    "member4Year"
-  ].forEach((id) => {
-    document.getElementById(id).value = "";
-  });
+  ["member4Name", "member4College", "member4Department", "member4Email", "member4Whatsapp", "member4Year"]
+    .forEach((id) => {
+      document.getElementById(id).value = "";
+    });
 }
 
 function setStatus(message, type = "") {
   statusMessage.textContent = message;
   statusMessage.className = "status";
-  if (type) {
-    statusMessage.classList.add(type);
-  }
+  if (type) statusMessage.classList.add(type);
 }
 
 function validateFile(file) {
@@ -106,8 +102,7 @@ function validateFile(file) {
   const allowedExtensions = [".jpg", ".jpeg", ".png", ".webp", ".pdf"];
   const fileName = file.name.toLowerCase();
   const hasValidExtension = allowedExtensions.some((ext) => fileName.endsWith(ext));
-
-  const maxSize = 10 * 1024 * 1024; // 10 MB
+  const maxSize = 10 * 1024 * 1024;
 
   if (!(allowedTypes.includes(file.type) || hasValidExtension)) {
     return "Only JPG, JPEG, PNG, WEBP, or PDF files are allowed.";
@@ -126,9 +121,7 @@ function readFileAsBase64(file) {
 
     reader.onload = () => {
       try {
-        const result = reader.result;
-        const base64 = String(result).split(",")[1];
-        resolve(base64);
+        resolve(String(reader.result).split(",")[1]);
       } catch (error) {
         reject(new Error("Could not process the selected file."));
       }
@@ -143,6 +136,7 @@ function collectFormData(file, base64File) {
   return {
     teamName: document.getElementById("teamName").value.trim(),
     membersCount: document.getElementById("membersCount").value,
+    calculatedFee: calculatedFeeValue.value,
 
     leaderName: document.getElementById("leaderName").value.trim(),
     leaderCollege: document.getElementById("leaderCollege").value.trim(),
@@ -172,7 +166,6 @@ function collectFormData(file, base64File) {
     member4Whatsapp: document.getElementById("member4Whatsapp").value.trim(),
     member4Year: document.getElementById("member4Year").value,
 
-    feePaid: document.getElementById("feePaid").value,
     transactionId: document.getElementById("transactionId").value.trim(),
     specialRequirements: document.getElementById("specialRequirements").value.trim(),
     declaration: document.getElementById("declaration").checked ? "Yes" : "No",
@@ -185,6 +178,7 @@ function collectFormData(file, base64File) {
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
+  successCard.classList.add("hidden");
 
   if (SCRIPT_URL.includes("PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE")) {
     setStatus("Please paste your Google Apps Script Web App URL in script.js first.", "error");
@@ -196,9 +190,12 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  const fileInput = document.getElementById("paymentScreenshot");
-  const file = fileInput.files[0];
+  if (!calculatedFeeValue.value) {
+    setStatus("Please select the team size to calculate the fee.", "error");
+    return;
+  }
 
+  const file = document.getElementById("paymentScreenshot").files[0];
   const fileError = validateFile(file);
   if (fileError) {
     setStatus(fileError, "error");
@@ -207,7 +204,7 @@ form.addEventListener("submit", async (event) => {
 
   submitBtn.disabled = true;
   submitBtn.textContent = "Submitting...";
-  setStatus("Uploading file and submitting your registration...", "loading");
+  setStatus("Submitting application, generating ID, PDF, and email...", "loading");
 
   try {
     const base64File = await readFileAsBase64(file);
@@ -222,27 +219,28 @@ form.addEventListener("submit", async (event) => {
     });
 
     const resultText = await response.text();
-    let result;
-
-    try {
-      result = JSON.parse(resultText);
-    } catch (parseError) {
-      throw new Error("Invalid server response: " + resultText);
-    }
+    const result = JSON.parse(resultText);
 
     if (result.status === "success") {
-      setStatus(`Registration successful. Your Team ID is ${result.teamId}.`, "success");
+      setStatus(`Application submitted successfully. Your Application ID is ${result.applicationId}.`, "success");
+
+      applicationIdText.textContent = result.applicationId || "";
+      pdfLinkBtn.href = result.pdfUrl || "#";
+      successCard.classList.remove("hidden");
+
       form.reset();
       member3Block.classList.add("hidden");
       member4Block.classList.add("hidden");
       setMember3Required(false);
       setMember4Required(false);
+      updateFeeDisplay();
+
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       setStatus(result.message || "Submission failed. Please try again.", "error");
     }
   } catch (error) {
-    console.error("Submission error:", error);
+    console.error(error);
     setStatus(error.message || "An error occurred while submitting the form.", "error");
   } finally {
     submitBtn.disabled = false;
@@ -250,4 +248,6 @@ form.addEventListener("submit", async (event) => {
   }
 });
 
+// Initial state
 toggleMemberBlocks();
+updateFeeDisplay();
