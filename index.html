@@ -20,7 +20,7 @@
 
   <header class="main-header">
     <div class="container header-inner">
-      <div class="logo-box">
+      <div class="logo-box floating-logo">
         <img src="assets/images/college-logo.png" alt="VMTW College Logo" class="logo" />
       </div>
 
@@ -34,7 +34,7 @@
         <p class="association-line">In Association with <strong>CANACO Technologies</strong></p>
       </div>
 
-      <div class="logo-box">
+      <div class="logo-box floating-logo">
         <img src="assets/images/canaco-logo.png" alt="CANACO Technologies Logo" class="logo" />
       </div>
     </div>
@@ -73,7 +73,9 @@
         </div>
 
         <div class="hero-right">
-          <img src="assets/images/poster.png" alt="Hackverse Poster" class="poster-image" />
+          <div class="poster-frame">
+            <img src="assets/images/poster.jpg" alt="Hackverse Poster" class="poster-image" />
+          </div>
         </div>
       </div>
     </div>
@@ -92,106 +94,124 @@
         <div class="registration-main">
           <form id="hackathonForm" enctype="multipart/form-data">
 
-            <h4>Team Details</h4>
-            <div class="grid">
-              <div class="field">
-                <label for="teamName">Team Name</label>
-                <input type="text" id="teamName" name="teamName" required />
+            <!-- STEP 1 -->
+            <div class="step-card active-step">
+              <div class="step-chip">Step 1</div>
+              <h4>Team Details</h4>
+
+              <div class="grid">
+                <div class="field">
+                  <label for="teamName">Team Name</label>
+                  <input type="text" id="teamName" name="teamName" required />
+                </div>
+
+                <div class="field">
+                  <label for="membersCount">Team Size</label>
+                  <select id="membersCount" name="membersCount" required>
+                    <option value="">Select</option>
+                    <option value="2">2 Members</option>
+                    <option value="3">3 Members</option>
+                    <option value="4">4 Members</option>
+                  </select>
+                </div>
               </div>
 
-              <div class="field">
-                <label for="membersCount">Team Size</label>
-                <select id="membersCount" name="membersCount" required>
-                  <option value="">Select</option>
-                  <option value="2">2 Members</option>
-                  <option value="3">3 Members</option>
-                  <option value="4">4 Members</option>
-                </select>
+              <div class="fee-banner" id="feeBanner">
+                <div>
+                  <span class="fee-label">Hackathon Fee</span>
+                  <h4 id="calculatedFee">₹0</h4>
+                </div>
+                <div class="fee-subtext">
+                  Fee updates automatically after selecting team size
+                </div>
+              </div>
+
+              <input type="hidden" id="calculatedFeeValue" name="calculatedFeeValue" />
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="step-card">
+              <div class="step-chip">Step 2</div>
+              <h4>Team Leader Details</h4>
+
+              <div class="grid">
+                <div class="field">
+                  <label for="leaderName">Name</label>
+                  <input type="text" id="leaderName" name="leaderName" required />
+                </div>
+                <div class="field">
+                  <label for="leaderCollege">College Name</label>
+                  <input type="text" id="leaderCollege" name="leaderCollege" required />
+                </div>
+                <div class="field">
+                  <label for="leaderDepartment">Department</label>
+                  <input type="text" id="leaderDepartment" name="leaderDepartment" required />
+                </div>
+                <div class="field">
+                  <label for="leaderEmail">Email ID</label>
+                  <input type="email" id="leaderEmail" name="leaderEmail" required />
+                </div>
+                <div class="field">
+                  <label for="leaderWhatsapp">WhatsApp Number</label>
+                  <input type="tel" id="leaderWhatsapp" name="leaderWhatsapp" required />
+                </div>
+                <div class="field">
+                  <label for="leaderYear">Year of Study</label>
+                  <select id="leaderYear" name="leaderYear" required>
+                    <option value="">Select</option>
+                    <option>1st Year</option>
+                    <option>2nd Year</option>
+                    <option>3rd Year</option>
+                    <option>4th Year</option>
+                  </select>
+                </div>
               </div>
             </div>
 
-            <div class="fee-banner" id="feeBanner">
-              <div>
-                <span class="fee-label">Hackathon Fee</span>
-                <h4 id="calculatedFee">₹0</h4>
-              </div>
-              <div class="fee-subtext">
-                Fee is automatically shown based on selected team size
+            <!-- STEP 3 -->
+            <div class="step-card">
+              <div class="step-chip">Step 3</div>
+              <h4>Member 2 Details</h4>
+
+              <div class="grid">
+                <div class="field">
+                  <label for="member2Name">Name</label>
+                  <input type="text" id="member2Name" name="member2Name" required />
+                </div>
+                <div class="field">
+                  <label for="member2College">College Name</label>
+                  <input type="text" id="member2College" name="member2College" required />
+                </div>
+                <div class="field">
+                  <label for="member2Department">Department</label>
+                  <input type="text" id="member2Department" name="member2Department" required />
+                </div>
+                <div class="field">
+                  <label for="member2Email">Email ID</label>
+                  <input type="email" id="member2Email" name="member2Email" required />
+                </div>
+                <div class="field">
+                  <label for="member2Whatsapp">WhatsApp Number</label>
+                  <input type="tel" id="member2Whatsapp" name="member2Whatsapp" required />
+                </div>
+                <div class="field">
+                  <label for="member2Year">Year of Study</label>
+                  <select id="member2Year" name="member2Year" required>
+                    <option value="">Select</option>
+                    <option>1st Year</option>
+                    <option>2nd Year</option>
+                    <option>3rd Year</option>
+                    <option>4th Year</option>
+                  </select>
+                </div>
               </div>
             </div>
 
-            <input type="hidden" id="calculatedFeeValue" name="calculatedFeeValue" />
-
-            <h4>Team Leader Details</h4>
-            <div class="grid">
-              <div class="field">
-                <label for="leaderName">Name</label>
-                <input type="text" id="leaderName" name="leaderName" required />
-              </div>
-              <div class="field">
-                <label for="leaderCollege">College Name</label>
-                <input type="text" id="leaderCollege" name="leaderCollege" required />
-              </div>
-              <div class="field">
-                <label for="leaderDepartment">Department</label>
-                <input type="text" id="leaderDepartment" name="leaderDepartment" required />
-              </div>
-              <div class="field">
-                <label for="leaderEmail">Email ID</label>
-                <input type="email" id="leaderEmail" name="leaderEmail" required />
-              </div>
-              <div class="field">
-                <label for="leaderWhatsapp">WhatsApp Number</label>
-                <input type="tel" id="leaderWhatsapp" name="leaderWhatsapp" required />
-              </div>
-              <div class="field">
-                <label for="leaderYear">Year of Study</label>
-                <select id="leaderYear" name="leaderYear" required>
-                  <option value="">Select</option>
-                  <option>1st Year</option>
-                  <option>2nd Year</option>
-                  <option>3rd Year</option>
-                  <option>4th Year</option>
-                </select>
-              </div>
-            </div>
-
-            <h4>Member 2 Details</h4>
-            <div class="grid">
-              <div class="field">
-                <label for="member2Name">Name</label>
-                <input type="text" id="member2Name" name="member2Name" required />
-              </div>
-              <div class="field">
-                <label for="member2College">College Name</label>
-                <input type="text" id="member2College" name="member2College" required />
-              </div>
-              <div class="field">
-                <label for="member2Department">Department</label>
-                <input type="text" id="member2Department" name="member2Department" required />
-              </div>
-              <div class="field">
-                <label for="member2Email">Email ID</label>
-                <input type="email" id="member2Email" name="member2Email" required />
-              </div>
-              <div class="field">
-                <label for="member2Whatsapp">WhatsApp Number</label>
-                <input type="tel" id="member2Whatsapp" name="member2Whatsapp" required />
-              </div>
-              <div class="field">
-                <label for="member2Year">Year of Study</label>
-                <select id="member2Year" name="member2Year" required>
-                  <option value="">Select</option>
-                  <option>1st Year</option>
-                  <option>2nd Year</option>
-                  <option>3rd Year</option>
-                  <option>4th Year</option>
-                </select>
-              </div>
-            </div>
-
-            <div id="member3Block" class="member-block hidden">
+            <!-- STEP 4 -->
+            <div id="member3Block" class="step-card member-block hidden">
+              <div class="step-chip">Step 4</div>
               <h4>Member 3 Details</h4>
+
               <div class="grid">
                 <div class="field">
                   <label for="member3Name">Name</label>
@@ -226,8 +246,11 @@
               </div>
             </div>
 
-            <div id="member4Block" class="member-block hidden">
+            <!-- STEP 5 -->
+            <div id="member4Block" class="step-card member-block hidden">
+              <div class="step-chip">Step 5</div>
               <h4>Member 4 Details</h4>
+
               <div class="grid">
                 <div class="field">
                   <label for="member4Name">Name</label>
@@ -262,81 +285,94 @@
               </div>
             </div>
 
-            <h4>Payment Details</h4>
-            <div class="payment-panel">
-              <div class="payment-left">
-                <div class="qr-card inline-qr-card">
-                  <h4>Scan QR Code to Pay</h4>
-                  <img src="assets/images/qr-code.png" alt="Payment QR Code" class="qr-image" />
-                  <p>After payment, enter the transaction ID and upload the payment screenshot below.</p>
+            <!-- STEP 6 -->
+            <div class="step-card">
+              <div class="step-chip">Step 6</div>
+              <h4>Payment Details</h4>
+
+              <div class="payment-panel">
+                <div class="payment-left">
+                  <div class="qr-card inline-qr-card">
+                    <h4>Scan QR Code to Pay</h4>
+                    <img src="assets/images/qr-code.png" alt="Payment QR Code" class="qr-image" />
+                    <p>After payment, enter the transaction ID and upload the payment screenshot below.</p>
+                  </div>
+                </div>
+
+                <div class="payment-right">
+                  <div class="grid">
+                    <div class="field">
+                      <label for="transactionId">Transaction ID / UPI Reference Number</label>
+                      <input type="text" id="transactionId" name="transactionId" required />
+                    </div>
+
+                    <div class="field full-width">
+                      <label for="paymentScreenshot">Upload Payment Screenshot</label>
+                      <input
+                        type="file"
+                        id="paymentScreenshot"
+                        name="paymentScreenshot"
+                        accept="image/*,.pdf"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 7 -->
+            <div class="step-card">
+              <div class="step-chip">Step 7</div>
+              <h4>Final Details</h4>
+
+              <div class="grid">
+                <div class="field full-width">
+                  <label for="specialRequirements">Any Special Requirements / Remarks</label>
+                  <textarea id="specialRequirements" name="specialRequirements" rows="4"></textarea>
+                </div>
+
+                <div class="field full-width checkbox-field">
+                  <input type="checkbox" id="declaration" name="declaration" required />
+                  <label for="declaration">
+                    I hereby confirm that all the details provided are correct and agree to the rules of the hackathon.
+                  </label>
                 </div>
               </div>
 
-              <div class="payment-right">
-                <div class="grid">
-                  <div class="field">
-                    <label for="transactionId">Transaction ID / UPI Reference Number</label>
-                    <input type="text" id="transactionId" name="transactionId" required />
-                  </div>
-
-                  <div class="field full-width">
-                    <label for="paymentScreenshot">Upload Payment Screenshot</label>
-                    <input
-                      type="file"
-                      id="paymentScreenshot"
-                      name="paymentScreenshot"
-                      accept="image/*,.pdf"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <h4>Final Details</h4>
-            <div class="grid">
-              <div class="field full-width">
-                <label for="specialRequirements">Any Special Requirements / Remarks</label>
-                <textarea id="specialRequirements" name="specialRequirements" rows="4"></textarea>
+              <div class="submit-row">
+                <button type="submit" id="submitBtn">Submit Registration</button>
               </div>
 
-              <div class="field full-width checkbox-field">
-                <input type="checkbox" id="declaration" name="declaration" required />
-                <label for="declaration">
-                  I hereby confirm that all the details provided are correct and agree to the rules of the hackathon.
-                </label>
-              </div>
+              <p id="statusMessage" class="status"></p>
             </div>
 
-            <div class="submit-row">
-              <button type="submit" id="submitBtn">Submit Registration</button>
-            </div>
-
-            <p id="statusMessage" class="status"></p>
-
+            <!-- SUCCESS FLOW -->
             <div id="successCard" class="success-card hidden">
               <h4>Application Submitted Successfully</h4>
               <p><strong>Application ID:</strong> <span id="applicationIdText"></span></p>
-              <p>Your application has been submitted successfully. Please use the options below.</p>
+              <p>Your application has been submitted successfully.</p>
 
-              <div class="success-actions-grid">
-                <div class="success-action-box">
-                  <h5>Join WhatsApp Group</h5>
-                  <p>Click below to join the official hackathon WhatsApp group.</p>
+              <div id="pdfModalWindow" class="success-flow-box">
+                <h5>Step 1: Download Application PDF</h5>
+                <p>First download your submitted application form.</p>
+                <div class="success-btn-row">
+                  <a id="pdfLinkBtn" href="#" target="_blank" class="btn-primary">Download PDF</a>
+                  <button type="button" id="closePdfStepBtn" class="btn-secondary dark-btn">Close This Window</button>
+                </div>
+              </div>
+
+              <div id="whatsappModalWindow" class="success-flow-box hidden">
+                <h5>Step 2: Join WhatsApp Group</h5>
+                <p>After downloading the PDF, join the official hackathon WhatsApp group.</p>
+                <div class="success-btn-row">
                   <a
                     id="whatsappGroupBtn"
-                    href="https://chat.whatsapp.com/IkGdFlQv1wmAE5tStHLCOJ"
+                    href="https://chat.whatsapp.com/PASTE_YOUR_GROUP_LINK"
                     target="_blank"
                     class="btn-primary"
                   >
                     Join WhatsApp Group
-                  </a>
-                </div>
-
-                  <h5>Download Application PDF</h5>
-                  <p>Download your submitted application form copy here.</p>
-                  <a id="pdfLinkBtn" href="#" target="_blank" class="btn-secondary dark-btn">
-                    Download PDF
                   </a>
                 </div>
               </div>
@@ -345,20 +381,20 @@
         </div>
 
         <aside class="registration-side">
-          <div class="help-card">
+          <div class="help-card three-d-card">
             <h4>Registration Help</h4>
             <p><strong>Faculty Coordinator:</strong><br />Dr. J. Ranjith<br />+91-6369043983</p>
             <p><strong>Student Coordinator:</strong><br />Ms. K. Hema Sri<br />+91-8125617760</p>
           </div>
 
-          <div class="help-card">
+          <div class="help-card three-d-card">
             <h4>Fee Chart</h4>
             <p>2 Members – ₹600</p>
             <p>3 Members – ₹750</p>
             <p>4 Members – ₹900</p>
           </div>
 
-          <div class="help-card">
+          <div class="help-card three-d-card">
             <h4>Prize Pool</h4>
             <p><strong>Rs. 50,000/-</strong></p>
           </div>
