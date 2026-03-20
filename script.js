@@ -12,7 +12,7 @@ const calculatedFee = document.getElementById("calculatedFee");
 const calculatedFeeValue = document.getElementById("calculatedFeeValue");
 
 // Paste your deployed Apps Script /exec URL here
-const SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyVPao7s6vRjKJOrbUrsTtk-qYzBvCaPR-LLuet1lqotXlsYv9tzVgWw_I0Nj9EifRQ/exec";
 
 membersCount.addEventListener("change", handleTeamSizeChange);
 
